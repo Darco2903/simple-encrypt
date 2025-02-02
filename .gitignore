@@ -1,0 +1,5 @@
+node_modules/
+.vscode/
+
+# tarballs
+simple-encrypt-*.tgz

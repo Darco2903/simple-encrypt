@@ -1,0 +1,5 @@
+.vscode/
+.gitattributes
+
+# tarballs
+simple-encrypt-*.tgz

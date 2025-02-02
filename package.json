@@ -1,0 +1,14 @@
+{
+    "name": "simple-encrypt",
+    "version": "0.1.1",
+    "author": "",
+    "description": "",
+    "keywords": [],
+    "license": "ISC",
+    "main": "index.js",
+    "types": "./index.d.ts",
+    "scripts": {},
+    "devDependencies": {
+        "console-log-colors": "^0.5.0"
+    }
+}
