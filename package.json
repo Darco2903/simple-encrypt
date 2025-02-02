@@ -1,6 +1,6 @@
 {
     "name": "simple-encrypt",
-    "version": "0.1.1",
+    "version": "0.2.0",
     "author": "",
     "description": "",
     "keywords": [],
@@ -8,6 +8,9 @@
     "main": "index.js",
     "types": "./index.d.ts",
     "scripts": {},
+    "bin": {
+        "simple-encrypt": "./bin/index.js"
+    },
     "devDependencies": {
         "console-log-colors": "^0.5.0"
     }
