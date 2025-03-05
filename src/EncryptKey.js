@@ -14,7 +14,7 @@ class EncryptKey {
         return EncryptKey.fromString(data.key, data.iv);
     }
 
-    static async fromString(key, iv) {
+    static fromString(key, iv) {
         return new EncryptKey(Buffer.from(key, "hex"), Buffer.from(iv, "hex"));
     }
 

@@ -3,7 +3,7 @@ export class EncryptKey {
 
     static async fromFile(p: string): Promise<EncryptKey>;
 
-    static async fromString(key: string, iv: string): Promise<EncryptKey>;
+    static fromString(key: string, iv: string): EncryptKey;
 
     public readonly key: string;
     public readonly iv: string;
