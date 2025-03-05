@@ -9,11 +9,13 @@ class EncryptKey {
         return new EncryptKey(key, iv);
     }
 
-    static async load(p) {
+    static async fromFile(p) {
         const data = JSON.parse(await fs.promises.readFile(p));
-        const key = Buffer.from(data.key, "hex");
-        const iv = Buffer.from(data.iv, "hex");
-        return new EncryptKey(key, iv);
+        return EncryptKey.fromString(data.key, data.iv);
+    }
+
+    static async fromString(key, iv) {
+        return new EncryptKey(Buffer.from(key, "hex"), Buffer.from(iv, "hex"));
     }
 
     #key;

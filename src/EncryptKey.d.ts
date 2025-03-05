@@ -1,7 +1,9 @@
 export class EncryptKey {
     static generate(keyLength?: 32 | number, ivLength?: 16 | number): EncryptKey;
 
-    static async load(p: string): Promise<EncryptKey>;
+    static async fromFile(p: string): Promise<EncryptKey>;
+
+    static async fromString(key: string, iv: string): Promise<EncryptKey>;
 
     public readonly key: string;
     public readonly iv: string;

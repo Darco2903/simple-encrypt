@@ -43,7 +43,9 @@ class SimpleEncrypt {
      * @returns {SimpleEncrypt}
      */
     constructor(key, type = "binary", { algorithm = "aes-256-cbc", encoding = "binary" } = {}) {
-        if (!(key instanceof EncryptKey)) throw new TypeError("Invalid key");
+        if (!(key instanceof EncryptKey)) {
+            throw new TypeError("Invalid key");
+        }
 
         this.#key = key;
         this.#type = type;

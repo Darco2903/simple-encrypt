@@ -32,8 +32,12 @@ console.log("Key saved to key.json");
 
 ```js
 // Load the key
-const key = await EncryptKey.load("key.json");
+const key = await EncryptKey.fromFile("key.json");
 console.log("Key loaded from key.json");
+
+// Load the key from a string
+const key = EncryptKey.fromString(KEY, IV);
+console.log("Key loaded from string");
 ```
 
 ### Encrypt and Decrypt
