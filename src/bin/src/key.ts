@@ -1,13 +1,10 @@
-const fs = require("fs");
-const path = require("path");
-const { color } = require("console-log-colors");
-
-const { flagInt, flagString } = require("../utils");
-const { EncryptKey } = require("../../src/index");
+import { color } from "console-log-colors";
+import { flagInt, flagString } from "../utils.js";
+import { EncryptKey } from "../../index.js";
 
 const IV_LENGTH = 16;
 
-async function generate(...options) {
+export default async function generate(...options: string[]) {
     console.log(color.green("Generating key..."));
 
     const keyLength = flagInt(options, "-b");
@@ -23,5 +20,3 @@ async function generate(...options) {
         console.log(color.yellow("IV:"), color.cyan(key.iv.toString("hex")));
     }
 }
-
-module.exports = generate;

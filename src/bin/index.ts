@@ -10,28 +10,30 @@
 
     const command = args[0];
     const options = args.slice(1);
+    console.log("Command:", command);
+    console.log("Options:", options);
 
     switch (command) {
         case "-h":
         case "--help":
-            require("./src/help")();
+            (await import("./src/help.js")).default();
             break;
 
         case "-v":
         case "--version":
-            await require("./src/version")();
+            (await import("./src/version.js")).default();
             break;
 
         case "generate":
-            await require("./src/key")(...options);
+            (await import("./src/key.js")).default(...options);
             break;
 
         case "encrypt":
-            await require("./src/encrypt")(...options);
+            (await import("./src/encrypt.js")).default(...options);
             break;
 
         case "decrypt":
-            await require("./src/decrypt")(...options);
+            (await import("./src/decrypt.js")).default(...options);
             break;
 
         default:

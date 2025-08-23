@@ -1,13 +1,11 @@
-const fs = require("fs");
-
-async function exists(p) {
-    return fs.promises
+import fs from "fs/promises";
+export async function exists(p) {
+    return fs
         .access(p, fs.constants.F_OK)
         .then(() => true)
         .catch(() => false);
 }
-
-function flag(options, flags) {
+export function flag(options, flags) {
     if (!Array.isArray(flags)) {
         flags = [flags];
     }
@@ -17,20 +15,11 @@ function flag(options, flags) {
         }
     }
 }
-
-function flagInt(options, flags, defaultValue) {
+export function flagInt(options, flags, defaultValue) {
     let value = flag(options, flags);
     return value ? parseInt(value) : defaultValue;
 }
-
-function flagString(options, flags, defaultValue) {
+export function flagString(options, flags, defaultValue) {
     let value = flag(options, flags);
     return value ? value : defaultValue;
 }
-
-module.exports = {
-    exists,
-    flag,
-    flagInt,
-    flagString,
-};

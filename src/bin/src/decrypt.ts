@@ -1,11 +1,10 @@
-const fs = require("fs");
-const path = require("path");
-const { color } = require("console-log-colors");
+import fs from "fs";
+import path from "path";
+import { color } from "console-log-colors";
+import { flagString, exists } from "../utils.js";
+import { EncryptKey, SimpleEncrypt } from "../../index.js";
 
-const { flagInt, flagString, exists } = require("../utils");
-const { EncryptKey, SimpleEncrypt } = require("../../src/index");
-
-async function decrypt(...options) {
+export default async function decrypt(...options: string[]) {
     console.log(color.green("Decrypting..."));
 
     const keyPath = flagString(options, ["-k", "--key"]);
@@ -40,7 +39,7 @@ async function decrypt(...options) {
         return;
     }
 
-    const key = await EncryptKey.load(keyPath);
+    const key = await EncryptKey.fromFile(keyPath);
     const se = new SimpleEncrypt(key, "binary");
 
     await se
@@ -61,5 +60,3 @@ async function decrypt(...options) {
             }
         });
 }
-
-module.exports = decrypt;

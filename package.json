@@ -5,13 +5,26 @@
     "description": "",
     "keywords": [],
     "license": "ISC",
-    "main": "index.js",
-    "types": "./index.d.ts",
-    "scripts": {},
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build": "tsc",
+        "prepack": "npm run build",
+        "test": "vitest",
+        "test:js-resolve": "node tests/jsResolve.js",
+        "test:ui": "vitest --ui",
+        "clean": "rimraf dist"
+    },
     "bin": {
-        "simple-encrypt": "./bin/index.js"
+        "simple-encrypt": "./dist/bin/index.js"
     },
     "devDependencies": {
-        "console-log-colors": "^0.5.0"
+        "@types/node": "^24.3.0",
+        "@vitest/ui": "^3.2.4",
+        "console-log-colors": "^0.5.0",
+        "rimraf": "^6.0.1",
+        "tsx": "^4.20.4",
+        "typescript": "^5.9.2",
+        "vitest": "^3.2.4"
     }
 }
