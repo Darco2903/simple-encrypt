@@ -1,10 +1,13 @@
 import fs from "fs/promises";
+import { createReadStream, createWriteStream } from "fs";
 import { describe, it, expect } from "vitest";
 import { EncryptKey, SimpleEncrypt } from "../../src";
 import { afterAll } from "vitest";
 
 const ENCRYPTED_FILE_PATH = "./encrypted.enc";
-const DECRYPTED_FILE_PATH = "./decrypted.txt";
+// const DECRYPTED_FILE_PATH = "./decrypted.txt";
+const ENCRYPTED_STREAM_PATH = "./encrypted_stream.enc";
+const DECRYPTED_STREAM_PATH = "./decrypted_stream.enc";
 
 //////////////////////////
 // generate
@@ -17,7 +20,6 @@ describe("SimpleEncrypt crypt/decrypt", () => {
         expect(se.key).toEqual(key);
 
         const buff = Buffer.from("test");
-        // await fs.writeFile(DECRYPTED_FILE_PATH, buff);
 
         const encrypted = se.encrypt(buff);
         expect(encrypted).not.toBe(buff);
@@ -46,7 +48,43 @@ describe("SimpleEncrypt crypt/decrypt ", () => {
     });
 });
 
+describe("SimpleEncrypt crypt/decrypt ", () => {
+    it("should encrypt and decrypt from/to files stream", async () => {
+        const key = EncryptKey.generate();
+        const se = new SimpleEncrypt(key);
+        expect(se).toBeInstanceOf(SimpleEncrypt);
+        expect(se.key).toEqual(key);
+
+        const buff = Buffer.from("test");
+        await fs.writeFile(DECRYPTED_STREAM_PATH, buff);
+
+        const toEnc = createReadStream(DECRYPTED_STREAM_PATH);
+        await new Promise<void>((resolve) => {
+            toEnc
+                .pipe(se.cipher)
+                .pipe(createWriteStream(ENCRYPTED_STREAM_PATH))
+                .on("finish", async () => {
+                    const encrypted = await fs.readFile(ENCRYPTED_STREAM_PATH);
+                    expect(encrypted).not.toBe(se.encrypt(buff));
+
+                    const toDec = createReadStream(ENCRYPTED_STREAM_PATH);
+                    toDec
+                        .pipe(se.decipher)
+                        .pipe(createWriteStream(DECRYPTED_STREAM_PATH))
+                        .on("finish", async () => {
+                            const decrypted = await fs.readFile(DECRYPTED_STREAM_PATH);
+                            expect(decrypted).toEqual(se.decrypt(encrypted));
+
+                            resolve();
+                        });
+                });
+        });
+    });
+});
+
 afterAll(async () => {
-    await fs.unlink(DECRYPTED_FILE_PATH).catch((e) => {});
     await fs.unlink(ENCRYPTED_FILE_PATH).catch((e) => {});
+    // await fs.unlink(DECRYPTED_FILE_PATH).catch((e) => {});
+    await fs.unlink(ENCRYPTED_STREAM_PATH).catch((e) => {});
+    await fs.unlink(DECRYPTED_STREAM_PATH).catch((e) => {});
 });

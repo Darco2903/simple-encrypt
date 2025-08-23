@@ -1,5 +1,8 @@
 .vscode/
 .gitattributes
+src/
+tests/
+tsconfig*.json
 
 # tarballs
 simple-encrypt-*.tgz
