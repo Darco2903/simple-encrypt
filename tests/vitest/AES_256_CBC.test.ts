@@ -1,22 +1,18 @@
 import fs from "fs/promises";
 import { createReadStream, createWriteStream } from "fs";
-import { describe, it, expect } from "vitest";
-import { EncryptKey, SimpleEncrypt } from "../../src";
-import { afterAll } from "vitest";
+import { afterAll, describe, expect, it } from "vitest";
+import { EncryptKey, AES_256_CBC } from "../../src";
 
-const ENCRYPTED_FILE_PATH = "./encrypted.enc";
+const ENCRYPTED_FILE_PATH = "./encrypted_cbc.enc";
 // const DECRYPTED_FILE_PATH = "./decrypted.txt";
-const ENCRYPTED_STREAM_PATH = "./encrypted_stream.enc";
-const DECRYPTED_STREAM_PATH = "./decrypted_stream.enc";
+const ENCRYPTED_STREAM_PATH = "./encrypted_stream_cbc.enc";
+const DECRYPTED_STREAM_PATH = "./decrypted_stream_cbc.enc";
 
-//////////////////////////
-// generate
-
-describe("SimpleEncrypt crypt/decrypt", () => {
+describe("AES_256_CBC crypt/decrypt", () => {
     it("should encrypt and decrypt a buffer", async () => {
         const key = EncryptKey.generate();
-        const se = new SimpleEncrypt(key);
-        expect(se).toBeInstanceOf(SimpleEncrypt);
+        const se = new AES_256_CBC(key);
+        expect(se).toBeInstanceOf(AES_256_CBC);
         expect(se.key).toEqual(key);
 
         const buff = Buffer.from("test");
@@ -30,11 +26,11 @@ describe("SimpleEncrypt crypt/decrypt", () => {
     });
 });
 
-describe("SimpleEncrypt crypt/decrypt ", () => {
+describe("AES_256_CBC crypt/decrypt", () => {
     it("should encrypt and decrypt from/to files", async () => {
         const key = EncryptKey.generate();
-        const se = new SimpleEncrypt(key);
-        expect(se).toBeInstanceOf(SimpleEncrypt);
+        const se = new AES_256_CBC(key);
+        expect(se).toBeInstanceOf(AES_256_CBC);
         expect(se.key).toEqual(key);
 
         const buff = Buffer.from("test");
@@ -48,11 +44,11 @@ describe("SimpleEncrypt crypt/decrypt ", () => {
     });
 });
 
-describe("SimpleEncrypt crypt/decrypt ", () => {
+describe("AES_256_CBC crypt/decrypt", () => {
     it("should encrypt and decrypt from/to files stream", async () => {
         const key = EncryptKey.generate();
-        const se = new SimpleEncrypt(key);
-        expect(se).toBeInstanceOf(SimpleEncrypt);
+        const se = new AES_256_CBC(key);
+        expect(se).toBeInstanceOf(AES_256_CBC);
         expect(se.key).toEqual(key);
 
         const buff = Buffer.from("test");

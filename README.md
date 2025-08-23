@@ -1,72 +1,73 @@
-# simple-encrypt
+# Simple Encrypt
 
 ## Description
 
-This is a simple encryption program that encrypts and decrypts data using node crypto. It uses a secret key to encrypt and decrypt data. These keys can be generated using the program or can be provided by the user.
+This is a simple encryption program that encrypts and decrypts data using node crypto.
 
 ## Installation
 
 ```bash
 npm install simple-encrypt-<version>.tgz
+pnpm add simple-encrypt-<version>.tgz
 ```
 
 ## Usage
 
-```js
-const { EncryptKey, SimpleEncrypt } = require("simple-encrypt");
+```ts
+import { EncryptKey } from "simple-encrypt";
 ```
 
 ### Key Generation
 
-```js
+```ts
 // Generate a key
 const key = EncryptKey.generate();
 console.log("Key generated");
 
 // Save the key to a json file
-await key.save("key.json");
+await key.toHexFile("key.json");
 console.log("Key saved to key.json");
 ```
 
 ### Load Key
 
-```js
+```ts
 // Load the key
-const key = await EncryptKey.fromFile("key.json");
+const key = await EncryptKey.fromHexFile("key.json");
 console.log("Key loaded from key.json");
 
-// Load the key from a string
-const key = EncryptKey.fromString(KEY, IV);
-console.log("Key loaded from string");
+// Load the key from a hex string
+const key = EncryptKey.fromHex(KEY, IV);
+console.log("Key loaded from hex string");
 ```
 
-### Encrypt and Decrypt
+### Encryption / Decryption
 
-```js
-const se = new SimpleEncrypt(key, "binary");
-const encrypted = se.encrypt("Hello World");
-console.log(encrypted); // <Encrypted data>
+```ts
+import { AES_256_CBC } from "simple-encrypt";
+
+const se = new SimpleEncrypt(key);
+
+const data = Buffer.from("Hello World");
+const encrypted = se.encrypt(data);
+console.log("Encrypted:", encrypted); // <Buffer ...>
 
 const decrypted = se.decrypt(encrypted);
-console.log(decrypted); // Hello World
-
-// Decrypt from a file
-const decryptedFile = await se.decryptFromFile("path/to/encrypted/file");
-
-// Encrypt to a file
-await se.encryptToFile("path/to/encrypted/file", "Hello World");
-
-// Stream encryption
-fs.createReadStream("input_path").pipe(se.cipher).pipe(fs.createWriteStream("output_path"));
-
-// Stream decryption
-fs.createReadStream("input_path").pipe(se.decipher).pipe(fs.createWriteStream("output_path"));
+console.log("Decrypted:", decrypted.toString()); // "Hello World"
 ```
 
 ## CLI
 
+### NPM
+
 ```bash
-npx logger [command] [options]
+npx simple-encrypt [command] [options]
+```
+
+### PNPM
+
+```bash
+pnpm exec simple-encrypt [command] [options]
 ```
 
 #### General
@@ -84,12 +85,12 @@ npx simple-encrypt generate [options]
 
 | Option | Default | Description | Required |
 | ------ | ------- | ----------- | -------- |
-| `-b`   | 32      | Key length  |          |
+| `-B`   | 32      | Key length  |          |
 | `-s`   |         | Save path   |          |
 
 > :warning: **A key length different from 32 will not work with the encryption and decryption.**
 
-#### Encryption and Decryption
+<!-- #### Encryption and Decryption
 
 ```bash
 npx simple-encrypt encrypt [options]
@@ -100,7 +101,7 @@ npx simple-encrypt decrypt [options]
 | ------ | ------- | ----------- | -------- |
 | `-k`   |         | Key path    | Yes      |
 | `-i`   |         | Input path  | Yes      |
-| `-o`   |         | Output path | Yes      |
+| `-o`   |         | Output path | Yes      | -->
 
 ### Examples
 
@@ -108,9 +109,11 @@ npx simple-encrypt decrypt [options]
 
 ```bash
 npx simple-encrypt generate -s key.json
+// or
+pnpm exec simple-encrypt generate -s key.json
 ```
 
-#### Encrypt input.txt and save it to output.txt
+<!-- #### Encrypt input.txt and save it to output.txt
 
 ```bash
 npx simple-encrypt encrypt -k key.json -i input.txt -o output.enc
@@ -120,4 +123,4 @@ npx simple-encrypt encrypt -k key.json -i input.txt -o output.enc
 
 ```bash
 npx simple-encrypt decrypt -k key.json -i output.enc -o output.txt
-```
+``` -->

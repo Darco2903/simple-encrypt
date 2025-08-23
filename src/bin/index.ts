@@ -10,8 +10,8 @@
 
     const command = args[0];
     const options = args.slice(1);
-    console.log("Command:", command);
-    console.log("Options:", options);
+    // console.log("Command:", command);
+    // console.log("Options:", options);
 
     switch (command) {
         case "-h":
@@ -28,13 +28,13 @@
             (await import("./src/key.js")).default(...options);
             break;
 
-        case "encrypt":
-            (await import("./src/encrypt.js")).default(...options);
-            break;
+        // case "encrypt":
+        //     (await import("./src/encrypt.js")).default(...options);
+        //     break;
 
-        case "decrypt":
-            (await import("./src/decrypt.js")).default(...options);
-            break;
+        // case "decrypt":
+        //     (await import("./src/decrypt.js")).default(...options);
+        //     break;
 
         default:
             console.log("Command not found, try help");

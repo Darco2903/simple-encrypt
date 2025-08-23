@@ -37,22 +37,22 @@ export default async function help() {
     console.log("");
     logTitle("Key Generation:");
     logCommand("generate", "Generate a random key");
-    logOption("-b", "Key length in bytes", true);
+    logOption("-B", "Key length in bytes", true);
     logOption("-s, --save", "Save key to file", true);
 
-    console.log("");
-    logTitle("Encryption:");
-    logCommand("encrypt", "Encrypt a file");
-    logOption("-k", "Key file path");
-    logOption("-i", "Input file path");
-    logOption("-o", "Output file path");
+    // console.log("");
+    // logTitle("Encryption:");
+    // logCommand("encrypt", "Encrypt a file");
+    // logOption("-k", "Key file path");
+    // logOption("-i", "Input file path");
+    // logOption("-o", "Output file path");
 
-    console.log("");
-    logTitle("Decryption:");
-    logCommand("decrypt", "Decrypt a file");
-    logOption("-k", "Key file path");
-    logOption("-i", "Input file path");
-    logOption("-o", "Output file path");
+    // console.log("");
+    // logTitle("Decryption:");
+    // logCommand("decrypt", "Decrypt a file");
+    // logOption("-k", "Key file path");
+    // logOption("-i", "Input file path");
+    // logOption("-o", "Output file path");
 
     // console.log("");
     // logTitle("Examples:");

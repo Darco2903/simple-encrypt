@@ -17,23 +17,34 @@ describe("EncryptKey generate", () => {
     });
 });
 
-describe("EncryptKey fromString", () => {
-    it("should create a new EncryptKey instance from strings", async () => {
-        const key = EncryptKey.fromString("key", "iv");
+describe("EncryptKey fromHex", () => {
+    it("should create a new EncryptKey instance from hex strings", async () => {
+        const key = EncryptKey.fromHex("key", "iv");
         expect(key).toBeInstanceOf(EncryptKey);
     });
 });
 
-describe("EncryptKey save", () => {
-    it("should save the EncryptKey instance to a file", async () => {
+describe("EncryptKey toHex", () => {
+    it("should export the EncryptKey instance to a JSON object", async () => {
         const key = EncryptKey.generate(KEY_LENGTH, IV_LENGTH);
-        await key.save(KEY_FILE_PATH);
+        const res = key.toHex();
+        expect(res).toEqual({
+            key: key.key.toString("hex"),
+            iv: key.iv.toString("hex"),
+        });
     });
 });
 
-describe("EncryptKey fromFile", () => {
+describe("EncryptKey toHexFile", () => {
+    it("should save the EncryptKey instance to a file", async () => {
+        const key = EncryptKey.generate(KEY_LENGTH, IV_LENGTH);
+        await key.toHexFile(KEY_FILE_PATH);
+    });
+});
+
+describe("EncryptKey fromHexFile", () => {
     it("should create an EncryptKey instance from a file", async () => {
-        const key = await EncryptKey.fromFile(KEY_FILE_PATH);
+        const key = await EncryptKey.fromHexFile(KEY_FILE_PATH);
         expect(key).toBeInstanceOf(EncryptKey);
     });
 });

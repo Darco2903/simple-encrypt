@@ -8,35 +8,31 @@ export class EncryptKey {
         return new EncryptKey(key, iv);
     }
 
-    static async fromFile(p: string) {
+    static async fromHexFile(p: string) {
         const data = JSON.parse(await fs.readFile(p, { encoding: "utf-8" }));
-        return EncryptKey.fromString(data.key, data.iv);
+        return EncryptKey.fromHex(data.key, data.iv);
     }
 
-    static fromString(key: string, iv: string) {
+    static fromHex(key: string, iv: string) {
         return new EncryptKey(Buffer.from(key, "hex"), Buffer.from(iv, "hex"));
     }
 
-    #key;
-    get key() {
-        return this.#key;
-    }
-
-    #iv;
-    get iv() {
-        return this.#iv;
-    }
+    public readonly key: Buffer;
+    public readonly iv: Buffer;
 
     constructor(key: Buffer, iv: Buffer) {
-        this.#key = key;
-        this.#iv = iv;
+        this.key = key;
+        this.iv = iv;
     }
 
-    async save(p: string) {
-        const data = {
-            key: this.#key.toString("hex"),
-            iv: this.#iv.toString("hex"),
+    toHex() {
+        return {
+            key: this.key.toString("hex"),
+            iv: this.iv.toString("hex"),
         };
-        await fs.writeFile(p, JSON.stringify(data));
+    }
+
+    async toHexFile(p: string) {
+        await fs.writeFile(p, JSON.stringify(this.toHex()));
     }
 }

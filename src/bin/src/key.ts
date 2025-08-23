@@ -7,13 +7,13 @@ const IV_LENGTH = 16;
 export default async function generate(...options: string[]) {
     console.log(color.green("Generating key..."));
 
-    const keyLength = flagInt(options, "-b");
+    const keyLength = flagInt(options, "-B");
     const keyPath = flagString(options, ["-s", "--save"]);
 
     const key = EncryptKey.generate(keyLength, IV_LENGTH);
 
     if (keyPath) {
-        await key.save(keyPath);
+        await key.toHexFile(keyPath);
         console.log(color.green(`Key saved to ${keyPath}`));
     } else {
         console.log(color.yellow("Key:"), color.cyan(key.key.toString("hex")));

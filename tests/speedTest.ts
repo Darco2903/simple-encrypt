@@ -1,5 +1,5 @@
 import fs from "fs";
-import { EncryptKey, SimpleEncrypt } from "../src/index.js";
+import { EncryptKey, AES_256_CBC } from "../src/index.js";
 
 const F = "buff.enc";
 const ENC_FILE = "./encrypted.enc";
@@ -10,7 +10,7 @@ const STREAM_DEC = "./stream-out.enc";
 const HIGH_WATER_MARK = 1024 * 1024 * 4;
 
 (async () => {
-    const se = new SimpleEncrypt(EncryptKey.generate());
+    const se = new AES_256_CBC(EncryptKey.generate());
 
     const buff = Buffer.alloc(1024 * 1024 * 1000, "a");
     // console.log("Buffer size:", buff.length);
