@@ -123,35 +123,26 @@ export class AES_256_CTR extends Base {
 
         const transform = new Transform({
             transform(chunk, _encoding, callback) {
-                // console.log("Processing chunk index:", chunkIndex);
                 const iv = self.ivForChunk(chunkIndex);
                 const cipher = createCipheriv(self.algorithm, self.key.key, iv);
                 const encrypted = Buffer.concat([cipher.update(chunk), cipher.final()]);
-                // console.log(`Encrypted chunk length: ${encrypted.length}`);
-                // console.log("start", start, "processedBytes", processedBytes);
 
                 let sliceStart = 0;
                 let sliceEnd = encrypted.length;
 
                 if (processedBytes < start) {
                     sliceStart = start - processedBytes;
-                    // console.log(`Adjusting sliceStart to ${sliceStart}`);
                 }
                 if (processedBytes + encrypted.length > end) {
                     sliceEnd = end - processedBytes;
                 }
 
                 if (sliceStart < sliceEnd) {
-                    // console.log(`Pushing bytes from ${sliceStart} to ${sliceEnd} of encrypted chunk`);
-                    // console.log(`Pushing bytes ${sliceEnd - sliceStart} of encrypted chunk`);
                     this.push(encrypted.subarray(sliceStart, sliceEnd));
                 }
 
                 processedBytes += encrypted.length;
                 chunkIndex++;
-
-                // console.log("After processing, processedBytes:", processedBytes);
-                // console.log("End boundary:", end);
 
                 if (processedBytes >= end) {
                     this.push(null);
@@ -172,36 +163,26 @@ export class AES_256_CTR extends Base {
 
         const transform = new Transform({
             transform(chunk, _encoding, callback) {
-                // console.log("Processing chunk index:", chunkIndex);
                 const iv = self.ivForChunk(chunkIndex);
                 const decipher = createDecipheriv(self.algorithm, self.key.key, iv);
                 const decrypted = Buffer.concat([decipher.update(chunk), decipher.final()]);
-                // console.log(`Decrypted chunk length: ${decrypted.length}`);
-                // console.log("start", start, "processedBytes", processedBytes);
 
                 let sliceStart = 0;
                 let sliceEnd = decrypted.length;
 
                 if (processedBytes < start) {
                     sliceStart = start - processedBytes;
-                    // console.log(`Adjusting sliceStart to ${sliceStart}`);
                 }
                 if (processedBytes + decrypted.length > end) {
                     sliceEnd = end - processedBytes;
                 }
 
                 if (sliceStart < sliceEnd) {
-                    // console.log(`Pushing bytes from ${sliceStart} to ${sliceEnd} of decrypted chunk`);
-                    // console.log(`Pushing bytes ${sliceEnd - sliceStart} of decrypted chunk`);
                     this.push(decrypted.subarray(sliceStart, sliceEnd));
                 }
 
                 processedBytes += decrypted.length;
                 chunkIndex++;
-                // chunkIndex = Math.floor(processedBytes / self.CHUNK_SIZE);
-
-                // console.log("After processing, processedBytes:", processedBytes);
-                // console.log("End boundary:", end);
 
                 if (processedBytes >= end) {
                     this.push(null);
@@ -214,37 +195,4 @@ export class AES_256_CTR extends Base {
             readStart: processedBytes,
         };
     }
-
-    // public decryptRangeFromFileToStream(from: string, start: number, end: number): Transform {
-    //     const { transform, readStart } = this.decipherRange(start, end);
-    //     const readStream = fs.createReadStream(from, {
-    //         start: readStart,
-    //         end,
-    //         // highWaterMark: this.CHUNK_SIZE,
-    //     });
-    //     // return readStream.pipe(transform);
-    //     return readStream.pipe(new FixedChunkTransform(this.CHUNK_SIZE)).pipe(transform);
-    // }
-
-    // public async decryptRangeFromFile(from: string, start: number, end: number): Promise<Buffer> {
-    //     return new Promise((resolve, reject) => {
-    //         const transform = this.decryptRangeFromFileToStream(from, start, end);
-    //         const chunks: Buffer[] = [];
-    //         transform.on("data", (chunk) => chunks.push(chunk));
-    //         transform.on("end", () => resolve(Buffer.concat(chunks)));
-    //         transform.on("error", reject);
-    //     });
-    // }
-
-    // public async decryptRangeFromToFile(from: string, to: string, start: number, end: number): Promise<void> {
-    //     return new Promise((resolve, reject) => {
-    //         const writeStream = fs.createWriteStream(to);
-    //         const transform = this.decryptRangeFromFileToStream(from, start, end);
-    //         transform.pipe(writeStream);
-
-    //         writeStream.on("finish", resolve);
-    //         writeStream.on("error", reject);
-    //         transform.on("error", reject);
-    //     });
-    // }
 }
