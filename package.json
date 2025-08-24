@@ -1,7 +1,7 @@
 {
     "name": "simple-encrypt",
     "version": "0.4.0",
-    "author": "",
+    "author": "Darco2903",
     "description": "",
     "keywords": [],
     "license": "ISC",
@@ -10,7 +10,7 @@
     "type": "module",
     "scripts": {
         "build": "tsc",
-        "prepack": "npm run build",
+        "prepack": "pnpm build",
         "test": "vitest",
         "test:js-resolve": "node tests/jsResolve.js",
         "test:ui": "vitest --ui",
