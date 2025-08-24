@@ -176,7 +176,7 @@ export class AES_256_CTR extends Base {
                 const iv = self.ivForChunk(chunkIndex);
                 const decipher = createDecipheriv(self.algorithm, self.key.key, iv);
                 const decrypted = Buffer.concat([decipher.update(chunk), decipher.final()]);
-                console.log(`Decrypted chunk length: ${decrypted.length}`);
+                // console.log(`Decrypted chunk length: ${decrypted.length}`);
                 // console.log("start", start, "processedBytes", processedBytes);
 
                 let sliceStart = 0;
