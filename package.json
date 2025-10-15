@@ -1,6 +1,6 @@
 {
     "name": "simple-encrypt",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "author": "Darco2903",
     "description": "",
     "keywords": [],
@@ -23,11 +23,11 @@
         "console-log-colors": "^0.5.0"
     },
     "devDependencies": {
-        "@types/node": "^24.3.0",
+        "@types/node": "^24.7.2",
         "@vitest/ui": "^3.2.4",
         "rimraf": "^6.0.1",
-        "tsx": "^4.20.4",
-        "typescript": "^5.9.2",
+        "tsx": "^4.20.6",
+        "typescript": "^5.9.3",
         "vitest": "^3.2.4"
     }
 }
