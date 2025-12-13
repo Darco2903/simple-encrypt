@@ -1,5 +1,5 @@
 {
-    "name": "simple-encrypt",
+    "name": "@darco2903/simple-encrypt",
     "version": "0.4.1",
     "author": "Darco2903",
     "description": "",
@@ -8,13 +8,13 @@
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "type": "module",
+    "packageManager": "pnpm@10.25.0",
     "scripts": {
         "build": "tsc",
         "prepack": "pnpm build",
         "test": "vitest",
-        "test:js-resolve": "node tests/jsResolve.js",
         "test:ui": "vitest --ui",
-        "clean": "rimraf dist"
+        "clean": "rimraf -g dist darco2903-simple-encrypt-*.tgz"
     },
     "bin": {
         "simple-encrypt": "./dist/bin/index.js"

@@ -3,6 +3,7 @@
 src/
 tests/
 tsconfig*.json
+.github/
 
 # tarballs
-simple-encrypt-*.tgz
+darco2903-simple-encrypt-*.tgz
