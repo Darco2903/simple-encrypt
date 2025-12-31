@@ -10,7 +10,7 @@ permissions:
   packages: write
 
 env:
-  PNPM_VERSION: "10.25.0"
+  PNPM_VERSION: "10.27.0"
   TARBALL_NAME: "darco2903-simple-encrypt"
 
 jobs:
