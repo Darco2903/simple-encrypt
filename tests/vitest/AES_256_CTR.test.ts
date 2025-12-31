@@ -8,6 +8,31 @@ const DECRYPTED_FILE_PATH = "./decrypted.txt";
 const ENCRYPTED_STREAM_PATH = "./encrypted_stream_ctr.enc";
 const DECRYPTED_STREAM_PATH = "./decrypted_stream_ctr.enc";
 
+describe("AES_256_CTR crypt empty key/iv", () => {
+    it("should fail to encrypt and decrypt a buffer with empty key/iv", async () => {
+        const key = EncryptKey.fromHex("", "");
+        const se = new AES_256_CTR(key);
+        expect(se).toBeInstanceOf(AES_256_CTR);
+        expect(se.key).toEqual(key);
+
+        const buff = Buffer.from("test");
+
+        try {
+            se.encrypt(buff);
+            throw new Error("Encryption should have failed");
+        } catch (e) {
+            expect(e).toBeInstanceOf(Error);
+        }
+
+        try {
+            se.decrypt(buff);
+            throw new Error("Decryption should have failed");
+        } catch (e) {
+            expect(e).toBeInstanceOf(Error);
+        }
+    });
+});
+
 describe("AES_256_CTR crypt/decrypt", () => {
     it("should encrypt and decrypt a buffer", async () => {
         const key = EncryptKey.generate();

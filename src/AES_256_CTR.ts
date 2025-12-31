@@ -16,10 +16,11 @@ export class AES_256_CTR extends Base {
     public get cipher() {
         const self = this;
         let chunkIndex = 0;
+        const iv = self.ivForChunk(chunkIndex++);
+        const cipher = createCipheriv(self.algorithm, self.key.key, iv);
+
         return new Transform({
             transform(chunk, _encoding, callback) {
-                const iv = self.ivForChunk(chunkIndex++);
-                const cipher = createCipheriv(self.algorithm, self.key.key, iv);
                 const encrypted = Buffer.concat([cipher.update(chunk), cipher.final()]);
                 callback(null, encrypted);
             },
@@ -29,10 +30,10 @@ export class AES_256_CTR extends Base {
     public get decipher() {
         const self = this;
         let chunkIndex = 0;
+        const iv = self.ivForChunk(chunkIndex++);
+        const decipher = createDecipheriv(self.algorithm, self.key.key, iv);
         return new Transform({
             transform(chunk, _encoding, callback) {
-                const iv = self.ivForChunk(chunkIndex++);
-                const decipher = createDecipheriv(self.algorithm, self.key.key, iv);
                 const decrypted = Buffer.concat([decipher.update(chunk), decipher.final()]);
                 callback(null, decrypted);
             },
