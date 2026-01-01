@@ -16,13 +16,26 @@ export class AES_256_CTR extends Base {
     public get cipher() {
         const self = this;
         let chunkIndex = 0;
-        const iv = self.ivForChunk(chunkIndex++);
-        const cipher = createCipheriv(self.algorithm, self.key.key, iv);
+
+        try {
+            const iv = self.ivForChunk(0);
+            const testCipher = createCipheriv(self.algorithm, self.key.key, iv);
+            testCipher.update(Buffer.alloc(0));
+            testCipher.final();
+        } catch (err) {
+            throw err;
+        }
 
         return new Transform({
             transform(chunk, _encoding, callback) {
-                const encrypted = Buffer.concat([cipher.update(chunk), cipher.final()]);
-                callback(null, encrypted);
+                try {
+                    const iv = self.ivForChunk(chunkIndex++);
+                    const cipher = createCipheriv(self.algorithm, self.key.key, iv);
+                    const encrypted = Buffer.concat([cipher.update(chunk), cipher.final()]);
+                    callback(null, encrypted);
+                } catch (err) {
+                    callback(err as Error);
+                }
             },
         });
     }
@@ -30,12 +43,26 @@ export class AES_256_CTR extends Base {
     public get decipher() {
         const self = this;
         let chunkIndex = 0;
-        const iv = self.ivForChunk(chunkIndex++);
-        const decipher = createDecipheriv(self.algorithm, self.key.key, iv);
+
+        try {
+            const iv = self.ivForChunk(0);
+            const testDecipher = createDecipheriv(self.algorithm, self.key.key, iv);
+            testDecipher.update(Buffer.alloc(0));
+            testDecipher.final();
+        } catch (err) {
+            throw err;
+        }
+
         return new Transform({
             transform(chunk, _encoding, callback) {
-                const decrypted = Buffer.concat([decipher.update(chunk), decipher.final()]);
-                callback(null, decrypted);
+                try {
+                    const iv = self.ivForChunk(chunkIndex++);
+                    const decipher = createDecipheriv(self.algorithm, self.key.key, iv);
+                    const decrypted = Buffer.concat([decipher.update(chunk), decipher.final()]);
+                    callback(null, decrypted);
+                } catch (err) {
+                    callback(err as Error);
+                }
             },
         });
     }
