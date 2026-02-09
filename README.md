@@ -6,20 +6,15 @@ This is a simple encryption program that encrypts and decrypts data using node c
 
 ## Installation
 
-```bash
-npm install simple-encrypt-<version>.tgz
-pnpm add simple-encrypt-<version>.tgz
-```
+You can found the package here: [**@darco2903/simple-encrypt**](https://github.com/users/Darco2903/packages/npm/package/simple-encrypt)
 
 ## Usage
-
-```ts
-import { EncryptKey } from "simple-encrypt";
-```
 
 ### Key Generation
 
 ```ts
+import { EncryptKey } from "@darco2903/simple-encrypt";
+
 // Generate a key
 const key = EncryptKey.generate();
 console.log("Key generated");
@@ -32,21 +27,24 @@ console.log("Key saved to key.json");
 ### Load Key
 
 ```ts
+import { EncryptKey } from "@darco2903/simple-encrypt";
+
 // Load the key
-const key = await EncryptKey.fromHexFile("key.json");
+const keyFromFile = await EncryptKey.fromHexFile("key.json");
 console.log("Key loaded from key.json");
 
 // Load the key from a hex string
-const key = EncryptKey.fromHex(KEY, IV);
+const keyFromHex = EncryptKey.fromHex(KEY, IV);
 console.log("Key loaded from hex string");
 ```
 
 ### Encryption / Decryption
 
 ```ts
-import { AES_256_CBC } from "simple-encrypt";
+import { AES_256_CBC, EncryptKey } from "@darco2903/simple-encrypt";
 
-const se = new SimpleEncrypt(key);
+const key = EncryptKey.generate();
+const se = new AES_256_CBC(key);
 
 const data = Buffer.from("Hello World");
 const encrypted = se.encrypt(data);
