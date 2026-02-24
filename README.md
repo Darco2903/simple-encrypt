@@ -6,7 +6,7 @@ This is a simple encryption program that encrypts and decrypts data using node c
 
 ## Installation
 
-You can found the package here: [**@darco2903/simple-encrypt**](https://github.com/users/Darco2903/packages/npm/package/simple-encrypt)
+You can find the package here: [**@darco2903/simple-encrypt**](https://github.com/users/Darco2903/packages/npm/package/simple-encrypt)
 
 ## Usage
 
