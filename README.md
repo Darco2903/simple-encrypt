@@ -2,11 +2,22 @@
 
 ## Description
 
-This is a simple encryption program that encrypts and decrypts data using node crypto.
+Simple Encrypt is a simple encryption library for Node.js based on the built-in `crypto` module that provides a simple API for encrypting and decrypting data using AES. It also provides a CLI for generating keys and encrypting/decrypting files. It exposes two classes, `AES-256-CBC` and `AES_256_CTR`, which implement the AES encryption algorithm in CBC and CTR modes respectively. The library also provides a `EncryptKey` class for generating and managing encryption keys.
+
+## Features
+
+- Key generation and management
+- CLI for key generation
+- `AES-256-CBC` and `AES_256_CTR` encryption and decryption
+- Encryption and decryption of data and files
+- Encryption and decryption of streams
+- `AES_256_CTR` class supports chunked encryption and decryption, allowing you to decrypt only a portion of a file without having to decrypt the entire file
 
 ## Installation
 
-You can find the package here: [**@darco2903/simple-encrypt**](https://github.com/users/Darco2903/packages/npm/package/simple-encrypt)
+```bash
+npm install @darco2903/simple-encrypt
+```
 
 ## Usage
 
@@ -56,13 +67,13 @@ console.log("Decrypted:", decrypted.toString()); // "Hello World"
 
 ## CLI
 
-### NPM
+#### NPM
 
 ```bash
 npx simple-encrypt [command] [options]
 ```
 
-### PNPM
+#### PNPM
 
 ```bash
 pnpm exec simple-encrypt [command] [options]

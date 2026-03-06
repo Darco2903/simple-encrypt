@@ -1,4 +1,4 @@
-import fs, { read } from "fs";
+import fs from "fs";
 import { Transform } from "stream";
 import { Base } from "./Base.js";
 import { EncryptKey } from "./EncryptKey.js";
@@ -161,6 +161,7 @@ export class AES_256_CTR extends Base {
                 if (processedBytes < start) {
                     sliceStart = start - processedBytes;
                 }
+
                 if (processedBytes + encrypted.length > end) {
                     sliceEnd = end - processedBytes;
                 }
@@ -201,6 +202,7 @@ export class AES_256_CTR extends Base {
                 if (processedBytes < start) {
                     sliceStart = start - processedBytes;
                 }
+                
                 if (processedBytes + decrypted.length > end) {
                     sliceEnd = end - processedBytes;
                 }

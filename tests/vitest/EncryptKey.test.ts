@@ -1,6 +1,6 @@
 import fs from "fs/promises";
 import { describe, it, expect } from "vitest";
-import { EncryptKey } from "../../src";
+import { EncryptKey } from "../../src/index.js";
 import { afterAll } from "vitest";
 
 const KEY_LENGTH = 32;

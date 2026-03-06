@@ -1,7 +1,7 @@
 import fs from "fs/promises";
 import { createReadStream, createWriteStream } from "fs";
 import { afterAll, describe, expect, it } from "vitest";
-import { EncryptKey, AES_256_CBC } from "../../src";
+import { EncryptKey, AES_256_CBC } from "../../src/index.js";
 
 const ENCRYPTED_FILE_PATH = "./encrypted_cbc.enc";
 // const DECRYPTED_FILE_PATH = "./decrypted.txt";
