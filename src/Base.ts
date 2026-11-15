@@ -14,25 +14,25 @@ export abstract class Base {
         this.algorithm = algorithm;
     }
 
-    public abstract encrypt(data: Buffer): Buffer;
-    public abstract decrypt(data: Buffer): Buffer;
+    public abstract encrypt(data: Buffer<ArrayBuffer>): Buffer<ArrayBuffer>;
+    public abstract decrypt(data: Buffer<ArrayBuffer>): Buffer<ArrayBuffer>;
 
-    public async encryptToFile(p: string, data: Buffer): Promise<void> {
+    public async encryptToFile(p: string, data: Buffer<ArrayBuffer>): Promise<void> {
         const encrypted = this.encrypt(data);
         await fs.writeFile(p, encrypted);
     }
 
-    public async decryptToFile(p: string, data: Buffer): Promise<void> {
+    public async decryptToFile(p: string, data: Buffer<ArrayBuffer>): Promise<void> {
         const decrypted = this.decrypt(data);
         await fs.writeFile(p, decrypted);
     }
 
-    public async encryptFromFile(p: string): Promise<Buffer> {
+    public async encryptFromFile(p: string): Promise<Buffer<ArrayBuffer>> {
         const data = await fs.readFile(p);
         return this.encrypt(data);
     }
 
-    public async decryptFromFile(p: string): Promise<Buffer> {
+    public async decryptFromFile(p: string): Promise<Buffer<ArrayBuffer>> {
         const data = await fs.readFile(p);
         return this.decrypt(data);
     }

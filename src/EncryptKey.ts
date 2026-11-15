@@ -17,10 +17,10 @@ export class EncryptKey {
         return new EncryptKey(Buffer.from(key, "hex"), Buffer.from(iv, "hex"));
     }
 
-    public readonly key: Buffer;
-    public readonly iv: Buffer;
+    public readonly key: Buffer<ArrayBuffer>;
+    public readonly iv: Buffer<ArrayBuffer>;
 
-    constructor(key: Buffer, iv: Buffer) {
+    constructor(key: Buffer<ArrayBuffer>, iv: Buffer<ArrayBuffer>) {
         this.key = key;
         this.iv = iv;
     }

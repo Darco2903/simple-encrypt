@@ -75,7 +75,7 @@ export class AES_256_CTR extends Base {
         super(key, "aes-256-ctr");
     }
 
-    private ivForChunk(chunkIndex: number): Buffer {
+    private ivForChunk(chunkIndex: number): Buffer<ArrayBuffer> {
         const iv = Buffer.from(this.key.iv);
         iv[12] ^= (chunkIndex >> 24) & 0xff;
         iv[13] ^= (chunkIndex >> 16) & 0xff;
@@ -84,7 +84,7 @@ export class AES_256_CTR extends Base {
         return iv;
     }
 
-    public encrypt(data: Buffer): Buffer {
+    public encrypt(data: Buffer<ArrayBuffer>): Buffer<ArrayBuffer> {
         let chunkIndex = 0;
         let res: Buffer[] = [];
 
@@ -99,9 +99,9 @@ export class AES_256_CTR extends Base {
         return Buffer.concat(res);
     }
 
-    public decrypt(data: Buffer): Buffer {
+    public decrypt(data: Buffer<ArrayBuffer>): Buffer<ArrayBuffer> {
         let chunkIndex = 0;
-        let res: Buffer[] = [];
+        let res: Buffer<ArrayBuffer>[] = [];
 
         while (chunkIndex * this.CHUNK_SIZE < data.length) {
             const chunk = data.subarray(chunkIndex * this.CHUNK_SIZE, (chunkIndex + 1) * this.CHUNK_SIZE);
@@ -202,7 +202,7 @@ export class AES_256_CTR extends Base {
                 if (processedBytes < start) {
                     sliceStart = start - processedBytes;
                 }
-                
+
                 if (processedBytes + decrypted.length > end) {
                     sliceEnd = end - processedBytes;
                 }

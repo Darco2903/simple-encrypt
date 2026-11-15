@@ -2,7 +2,7 @@ import { Transform } from "stream";
 
 export class FixedChunkTransform extends Transform {
     private chunkSize: number;
-    private buffers: Buffer[];
+    private buffers: Buffer<ArrayBuffer>[];
     private totalLength: number;
 
     constructor(chunkSize: number) {
@@ -12,7 +12,7 @@ export class FixedChunkTransform extends Transform {
         this.totalLength = 0;
     }
 
-    _transform(chunk: Buffer, _encoding: BufferEncoding, callback: Function) {
+    _transform(chunk: Buffer<ArrayBuffer>, _encoding: BufferEncoding, callback: Function) {
         this.buffers.push(chunk);
         this.totalLength += chunk.length;
 

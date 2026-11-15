@@ -3,6 +3,7 @@ node_modules/
 .vscode/
 *_.*
 *_
+.DS_Store
 
 # build
 dist/

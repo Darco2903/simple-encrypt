@@ -16,12 +16,12 @@ export class AES_256_CBC extends Base {
         super(key, "aes-256-cbc");
     }
 
-    public encrypt(data: Buffer) {
+    public encrypt(data: Buffer<ArrayBuffer>): Buffer<ArrayBuffer> {
         const cipher = this.cipher;
         return Buffer.concat([cipher.update(data), cipher.final()]);
     }
 
-    public decrypt(data: Buffer) {
+    public decrypt(data: Buffer<ArrayBuffer>): Buffer<ArrayBuffer> {
         const decipher = this.decipher;
         return Buffer.concat([decipher.update(data), decipher.final()]);
     }
