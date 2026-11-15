@@ -1,9 +1,0 @@
-.vscode/
-.gitattributes
-src/
-tests/
-tsconfig*.json
-.github/
-
-# tarballs
-darco2903-simple-encrypt-*.tgz

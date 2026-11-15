@@ -1,6 +1,11 @@
+# dev
 node_modules/
 .vscode/
+*_.*
+*_
+
+# build
 dist/
 
 # tarballs
-simple-encrypt-*.tgz
+darco2903-simple-encrypt-*.tgz

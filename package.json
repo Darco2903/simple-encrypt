@@ -2,23 +2,41 @@
     "name": "@darco2903/simple-encrypt",
     "version": "0.4.5",
     "author": "Darco2903",
-    "description": "",
+    "description": "Simple Encrypt",
     "keywords": [],
-    "license": "ISC",
+    "license": "MIT",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "type": "module",
-    "packageManager": "pnpm@10.32.1",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "engines": {
+        "node": ">=24"
+    },
+    "packageManager": "pnpm@12.21.0",
+    "homepage": "https://github.com/Darco2903/simple-encrypt#readme",
+    "bugs": {
+        "url": "https://github.com/Darco2903/simple-encrypt/issues"
+    },
     "repository": {
+        "type": "git",
         "url": "https://github.com/Darco2903/simple-encrypt.git"
     },
     "publishConfig": {
         "access": "public"
     },
     "scripts": {
-        "build": "tsc",
+        "build": "rimraf dist && tsc",
+        "check": "tsc --noEmit && tsc -p tests",
+        "test": "vitest run",
         "prepack": "pnpm build",
-        "test": "vitest",
         "clean": "rimraf -g dist darco2903-simple-encrypt-*.tgz"
     },
     "bin": {
@@ -28,9 +46,9 @@
         "console-log-colors": "^0.5.0"
     },
     "devDependencies": {
-        "@types/node": "^25.5.0",
-        "rimraf": "^6.1.3",
-        "typescript": "^5.9.3",
-        "vitest": "^4.1.0"
+        "@types/node": "^26.6.6",
+        "rimraf": "^6.1.4",
+        "typescript": "^7.0.2",
+        "vitest": "^5.1.0"
     }
 }
